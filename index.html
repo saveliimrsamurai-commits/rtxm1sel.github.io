@@ -3,43 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой сайт на GitHub</title>
+    <title>rename-loader</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 650px;
-            margin: 50px auto;
-            padding: 0 20px;
-            line-height: 1.6;
-            color: #24292e;
-            background-color: #f6f8fa;
+            background: #000;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 0, 0.03) 0px,
+                rgba(0, 0, 0, 0.5) 2px,
+                transparent 3px
+            );
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .glitch-wrapper {
+            margin-bottom: 30px;
+        }
+
+        .glitch {
+            font-size: 56px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #0f0;
+            text-shadow: 
+                3px 0 #f0f,
+                -3px 0 #0ff;
+            letter-spacing: 8px;
+            animation: glitch 0.3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 3px 0 #f0f, -3px 0 #0ff; }
+            25% { text-shadow: -3px 0 #f0f, 3px 0 #0ff; }
+            50% { text-shadow: 2px 0 #f0f, -2px 0 #0ff; }
+            75% { text-shadow: -2px 0 #f0f, 2px 0 #0ff; }
+        }
+
         .card {
-            background: white;
+            background: rgba(0, 20, 0, 0.9);
+            border: 2px solid #0f0;
             padding: 30px;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-            border: 1px solid #e1e4e8;
+            box-shadow: 
+                0 0 20px #0f0,
+                inset 0 0 20px rgba(0, 255, 0, 0.2);
         }
-        h1 { margin-top: 0; color: #0366d6; }
-        .footer { font-size: 14px; color: #586069; margin-top: 20px; text-align: center; }
+
+        .terminal-line {
+            color: #0f0;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border-bottom: 1px solid #0f0;
+            padding-bottom: 10px;
+        }
+
+        .prompt {
+            color: #0f0;
+        }
+
+        .prompt::before {
+            content: "$ ";
+            color: #0f0;
+        }
+
+        .info-block {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #0f0;
+            background: rgba(0, 255, 0, 0.05);
+        }
+
+        .label {
+            color: #0f0;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .progress {
+            width: 100%;
+            height: 20px;
+            background: #000;
+            border: 1px solid #0f0;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 87%;
+            height: 100%;
+            background: #0f0;
+            animation: progress-pulse 2s infinite;
+        }
+
+        @keyframes progress-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #0f0;
+            color: #000;
+            box-shadow: 0 0 20px #0f0;
+        }
+
+        .status {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #0f0;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>👋 Привет, мир!</h1>
-        <p>Это мой сайт, который живет на <strong>GitHub Pages</strong>.</p>
-        <p>Я только что создал этот файл <code>index.html</code> прямо в браузере, и через минуту он появится в интернете.</p>
-        <hr>
-        <h3>Что дальше?</h3>
-        <ul>
-            <li>Я могу редактировать этот файл.</li>
-            <li>Могу добавить картинки в папку <code>/images</code>.</li>
-            <li>Могу подключить свой домен.</li>
-        </ul>
-    </div>
-    <div class="footer">
-        🚀 Размещено на GitHub Pages
+    <div class="container">
+        <div class="glitch-wrapper">
+            <div class="glitch">RENAME-LOADER</div>
+        </div>
+        
+        <div class="card">
+            <div class="terminal-line">
+                <span class="status"></span>
+                SYSTEM ONLINE // NODE: GITHUB-PAGES
+            </div>
+            
+            <div class="prompt">whoami</div>
+            <div class="value" style="margin-top: 5px;">> rename-loader.exe</div>
+            
+            <div class="info-block">
+                <div class="label">TARGET DOMAIN</div>
+                <div class="value">> rename-loader.is-a.dev</div>
+                
+                <div class="label">DEPLOYMENT</div>
+                <div class="value">> ACTIVE // GITHUB PAGES</div>
+                
+                <div class="label">STATUS</div>
+                <div class="value">> OPERATIONAL</div>
+            </div>
+            
+            <div class="progress">
+                <div class="progress-bar"></div>
+            </div>
+            
+            <div class="prompt" style="margin-bottom: 15px;">./execute --help</div>
+            
+            <div class="button-group">
+                <a href="#" class="btn">[ LOAD ]</a>
+                <a href="#" class="btn">[ CONFIG ]</a>
+                <a href="https://github.com/saveliimrsamurai-commits" class="btn">[ GITHUB ]</a>
+            </div>
+            
+            <div style="margin-top: 20px; color: #0f0; opacity: 0.7; font-size: 12px;">
+                <span class="prompt" style="margin-right: 10px;"></span>
+                ready for input... <span style="animation: blink 1s infinite;">█</span>
+            </div>
+        </div>
     </div>
 </body>
 </html>
